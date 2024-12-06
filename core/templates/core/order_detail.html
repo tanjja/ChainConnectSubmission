@@ -1,0 +1,49 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <h1>Order Details - Order #{{ order.id }}</h1>
+    
+    <!-- Customer and Order Information -->
+    <div class="mb-3">
+        <strong>Customer Name:</strong> {{ order.customer.name }}
+    </div>
+    <div class="mb-3">
+        <strong>Status:</strong> {{ order.status }}
+    </div>
+    <div class="mb-3">
+        <strong>Shipping Address:</strong>
+        {% if shipping_address %}
+            {{ shipping_address.address }}, {{ shipping_address.city }},
+            {{ shipping_address.state }}, {{ shipping_address.zipcode }}
+        {% else %}
+            <em>No shipping address available</em>
+        {% endif %}
+    </div>
+
+    <!-- Order Items Table -->
+    <h2>Order Items</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order.orderitem_set.all %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>₱{{ item.product.price|floatformat:2 }}</td>
+                <td>₱{{ item.get_total|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Back to Order List -->
+    <a href="{% url 'order_list' %}" class="btn btn-secondary">Back to Orders</a>
+{% endblock %}
+

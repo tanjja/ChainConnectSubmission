@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="checkout-scard card border-0 rounded">
+            <div class="card-body text-center">
+                <p class="card-icon"><i class="icon an an-shield-check fs-1"></i></p>
+                <h4 class="card-title">Thank you for your order!</h4>
+                <p class="card-text mb-1">You will receive an order confirmation email with details of your order and a link to track its progress.</p>
+                <p class="card-text mb-1">All necessary information about the delivery, we sent to your email</p>
+                <p class="card-text mb-0">Order date: {{order.date_ordered}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

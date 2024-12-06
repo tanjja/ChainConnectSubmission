@@ -1,0 +1,45 @@
+<!-- product_listing.html -->
+
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Product List</h1>
+
+    <!-- Add Product Button -->
+    <a href="{% url 'product_add' %}" class="btn btn-primary mb-3">Add New Product</a>
+
+    <!-- Product Table -->
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.price }}</td>
+                <td>
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" width="100" class="img-fluid">
+                    {% else %}
+                        No image
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'product_edit' product.id %}" class="btn btn-warning btn-sm">Edit</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No products available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

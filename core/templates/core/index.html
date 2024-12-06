@@ -1,0 +1,95 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<!-- Link to custom CSS -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+<!-- Hero Section -->
+<section class="hero-section text-center bg-primary text-white py-5">
+    <div class="container">
+        <h1 class="display-4 text-warning fw-bold">Welcome to Chain Connect</h1>
+        <p class="lead">Connecting you to the best products and services.</p>
+        <a href="/store" class="btn btn-light btn-lg">Browse Products</a>
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="featured-products py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Featured Products</h2>
+        <div class="row">
+            {% for product in featured_products %}
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <a href="/store/{{ product.id }}" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">No featured products available at the moment.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- About Us Section -->
+<section class="about-us bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h2>About Us</h2>
+                <p class="lead">We are dedicated to connecting people with quality products. Our platform ensures easy access to a wide range of goods, delivered with speed and convenience.</p>
+                <a href="/about" class="btn btn-primary">Learn More</a>
+            </div>
+            <div class="col-md-6">
+                <img src="{% static 'images/about-us.png' %}" class="img-fluid" alt="About Us">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">What Our Customers Are Saying</h2>
+        <div class="row">
+            <!-- Testimonial 1 -->
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <p class="card-text">"Chain Connect made it easy for me to find exactly what I needed. Highly recommended!"</p>
+                        <h5 class="card-title">John Doe</h5>
+                    </div>
+                </div>
+            </div>
+            <!-- Testimonial 2 -->
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <p class="card-text">"A seamless experience from start to finish. Excellent customer service!"</p>
+                        <h5 class="card-title">Jane Smith</h5>
+                    </div>
+                </div>
+            </div>
+            <!-- Testimonial 3 -->
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <p class="card-text">"I trust Chain Connect for all my product needs. They never disappoint!"</p>
+                        <h5 class="card-title">Michael Brown</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

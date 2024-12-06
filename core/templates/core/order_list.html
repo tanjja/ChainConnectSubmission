@@ -1,0 +1,41 @@
+<!-- order_list.html -->
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <h1>Order Management</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer Name</th>
+                <th>Status</th>
+                <th>Shipping Address</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order_data %}
+                <tr>
+                    <td>{{ item.order.id }}</td>
+                    <td>{{ item.order.customer.name }}</td>
+                    <td>{{ item.order.status }}</td>
+                    <td>
+                        {% if item.shipping_address %}
+                            {{ item.shipping_address.address }}, {{ item.shipping_address.city }},
+                            {{ item.shipping_address.state }}, {{ item.shipping_address.zipcode }}
+                        {% else %}
+                            <em>No shipping address</em>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'order_detail' item.order.id %}" class="btn btn-info">View Details</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">No orders available</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

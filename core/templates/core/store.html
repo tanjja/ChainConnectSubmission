@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+{% block title %} Store {% endblock %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- Search Bar -->
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <form method="get" action="{% url 'store' %}">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search for products..." value="{{ request.GET.q }}">
+                    <button class="btn btn-outline-primary" type="submit">
+                        <i class="fa fa-search"></i> Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Product List -->
+<div class="row">
+    {% if products %}
+    {% for product in products %}
+    <div class="col-lg-4 mt-4">
+        <img class="thumbnail" src="{{product.imageURL}}">
+        <div class="box-element product">
+            <h6><strong>{{product.name}}</strong></h6>
+            <hr>
+
+            <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+            <a class="btn btn-outline-success" href="#">View</a>
+            <h4 style="display: inline-block; float: right"><strong>₱{{product.price|floatformat:2}}</strong></h4>
+
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+        <p>No products found for "{{ query }}"</p>
+    {% endif %}
+</div>
+
+{% endblock %}
